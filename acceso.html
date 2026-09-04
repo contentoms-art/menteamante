@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Acceso profesional | Mente Amante</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="access-page">
+
+    <main class="access-container">
+
+        <div class="access-card">
+
+            <img
+                src="logo.png"
+                alt="Mente Amante"
+                class="access-logo"
+            >
+
+            <p class="access-label">
+                ÁREA PROFESIONAL
+            </p>
+
+            <h1>
+                Bienvenido/a
+            </h1>
+
+            <p class="access-description">
+                Accede a tu espacio de gestión de Mente Amante.
+            </p>
+
+
+            <form id="loginForm">
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Correo electrónico
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="tu@email.com"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Contraseña
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Tu contraseña"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="access-button"
+                    id="loginButton"
+                >
+                    ACCEDER
+                </button>
+
+            </form>
+
+
+            <p
+                id="loginMessage"
+                class="login-message"
+            ></p>
+
+
+            <a
+                href="index.html"
+                class="back-home"
+            >
+                ← Volver a Mente Amante
+            </a>
+
+        </div>
+
+    </main>
+
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Configuración -->
+    <script src="supabase-config.js"></script>
+
+    <!-- Login -->
+    <script src="login.js"></script>
+
+</body>
+
+</html>

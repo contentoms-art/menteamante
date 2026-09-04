@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Activar cuenta | Mente Amante</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+        defer
+    ></script>
+
+</head>
+
+
+<body class="access-page">
+
+    <main class="access-container">
+
+        <div class="access-card">
+
+            <img
+                src="logo.png"
+                alt="Mente Amante"
+                class="access-logo"
+            >
+
+            <p class="access-label">
+                ÁREA PROFESIONAL
+            </p>
+
+            <h1>
+                Activa tu cuenta
+            </h1>
+
+            <p class="access-description">
+                Bienvenido/a a Mente Amante.
+                Crea tu contraseña para acceder
+                a tu espacio profesional.
+            </p>
+
+
+            <form id="activateForm">
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Nueva contraseña
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Crea tu contraseña"
+                        minlength="6"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="confirmPassword">
+                        Repite la contraseña
+                    </label>
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="Repite tu contraseña"
+                        minlength="6"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="access-button"
+                    id="activateButton"
+                >
+                    CREAR MI ACCESO
+                </button>
+
+            </form>
+
+
+            <p
+                id="activateMessage"
+                class="login-message"
+            ></p>
+
+        </div>
+
+    </main>
+
+
+    <script src="supabase-config.js"></script>
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            async function () {
+
+                const activateForm =
+                    document.getElementById(
+                        "activateForm"
+                    );
+
+                const activateButton =
+                    document.getElementById(
+                        "activateButton"
+                    );
+
+                const message =
+                    document.getElementById(
+                        "activateMessage"
+                    );
+
+
+                /*
+                 * Crear cliente de Supabase
+                 */
+
+                const supabaseClient =
+                    window.supabase.createClient(
+                        SUPABASE_URL,
+                        SUPABASE_PUBLISHABLE_KEY
+                    );
+
+
+                /*
+                 * Comprobar que la invitación
+                 * ha creado una sesión válida.
+                 */
+
+                const {
+                    data: sessionData,
+                    error: sessionError
+                } =
+                    await supabaseClient.auth
+                        .getSession();
+
+
+                if (
+                    sessionError ||
+                    !sessionData.session
+                ) {
+
+                    message.style.color =
+                        "#a65b43";
+
+                    message.textContent =
+                        "El enlace de invitación no es válido o ha caducado.";
+
+                    activateButton.disabled =
+                        true;
+
+                    return;
+                }
+
+
+                /*
+                 * Crear contraseña
+                 */
+
+                activateForm.addEventListener(
+                    "submit",
+                    async function (event) {
+
+                        event.preventDefault();
+
+
+                        const password =
+                            document.getElementById(
+                                "password"
+                            ).value;
+
+                        const confirmPassword =
+                            document.getElementById(
+                                "confirmPassword"
+                            ).value;
+
+
+                        if (
+                            password.length < 6
+                        ) {
+
+                            message.style.color =
+                                "#a65b43";
+
+                            message.textContent =
+                                "La contraseña debe tener al menos 6 caracteres.";
+
+                            return;
+                        }
+
+
+                        if (
+                            password !==
+                            confirmPassword
+                        ) {
+
+                            message.style.color =
+                                "#a65b43";
+
+                            message.textContent =
+                                "Las contraseñas no coinciden.";
+
+                            return;
+                        }
+
+
+                        activateButton.disabled =
+                            true;
+
+                        activateButton.textContent =
+                            "ACTIVANDO...";
+
+
+                        const {
+                            error
+                        } =
+                            await supabaseClient.auth
+                                .updateUser({
+                                    password:
+                                        password
+                                });
+
+
+                        if (error) {
+
+                            console.error(
+                                "Error activando cuenta:",
+                                error
+                            );
+
+                            message.style.color =
+                                "#a65b43";
+
+                            message.textContent =
+                                error.message;
+
+                            activateButton.disabled =
+                                false;
+
+                            activateButton.textContent =
+                                "CREAR MI ACCESO";
+
+                            return;
+                        }
+
+
+                        message.style.color =
+                            "#397247";
+
+                        message.textContent =
+                            "¡Cuenta activada correctamente!";
+
+
+                        setTimeout(
+                            function () {
+
+                                window.location.href =
+                                    "panel.html";
+
+                            },
+                            1200
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Panel de gestión | Mente Amante</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body class="panel-page">
+
+
+    <!-- =====================================
+         BARRA LATERAL
+    ====================================== -->
+
+    <aside class="panel-sidebar">
+
+        <div class="panel-brand">
+
+            <img
+                src="logo.png"
+                alt="Mente Amante"
+            >
+
+            <span>
+                Gestión
+            </span>
+
+        </div>
+
+
+        <nav class="panel-navigation">
+
+            <button
+                class="panel-nav-item active"
+                data-section="inicio"
+                type="button"
+            >
+                <span>⌂</span>
+                Inicio
+            </button>
+
+
+            <button
+                class="panel-nav-item"
+                data-section="reservas"
+                type="button"
+            >
+                <span>◷</span>
+                Reservas
+            </button>
+
+
+            <button
+                class="panel-nav-item"
+                data-section="profesionales"
+                data-owner-only
+                type="button"
+            >
+                <span>♙</span>
+                Profesionales
+            </button>
+
+
+            <button
+                class="panel-nav-item"
+                data-section="servicios"
+                type="button"
+            >
+                <span>✦</span>
+                Servicios
+            </button>
+
+
+            <button
+                class="panel-nav-item"
+                data-section="clientes"
+                type="button"
+            >
+                <span>♧</span>
+                Clientes
+            </button>
+
+
+            <button
+                class="panel-nav-item"
+                data-section="tpv"
+                data-owner-only
+                type="button"
+            >
+                <span>▣</span>
+                TPV
+            </button>
+
+
+            <button
+                class="panel-nav-item"
+                data-section="facturacion"
+                data-owner-only
+                type="button"
+            >
+                <span>▤</span>
+                Facturación
+            </button>
+
+            <button
+                class="panel-nav-item"
+                data-section="perfil"
+                type="button"
+            >
+                <span>○</span>
+                Mi perfil
+            </button>
+
+        </nav>
+
+
+        <div class="panel-sidebar-bottom">
+
+            <a
+                href="index.html"
+                class="panel-home-link"
+            >
+                <span>⌂</span>
+                Volver a la web
+            </a>
+
+            <button
+                id="logoutButton"
+                class="logout-button"
+                type="button"
+            >
+                Cerrar sesión
+            </button>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================
+         CONTENIDO PRINCIPAL
+    ====================================== -->
+
+    <main class="panel-main">
+
+
+        <!-- =====================================
+             CABECERA
+        ====================================== -->
+
+        <header class="panel-header">
+
+            <div>
+
+                <p class="panel-eyebrow">
+            <div id="serviceModal" class="modal-overlay">
+
+                <div class="professional-modal">
+
+                    <button id="closeServiceModal" class="modal-close" aria-label="Cerrar" type="button">×</button>
+
+                    <div class="modal-heading">
+                        <p class="panel-eyebrow">CATÁLOGO</p>
+                        <h2 id="serviceModalTitle">Añadir servicio</h2>
+                        <p>Los cambios se reflejarán en la web y en las nuevas reservas.</p>
+                    </div>
+
+                    <form id="serviceForm">
+                        <input id="serviceId" type="hidden">
+
+                        <div class="form-group">
+                            <label for="serviceName">Nombre</label>
+                            <input id="serviceName" type="text" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="serviceDescription">Descripción</label>
+                            <textarea id="serviceDescription" rows="3"></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="serviceDuration">Duración (minutos)</label>
+                                <input id="serviceDuration" type="number" min="1" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="servicePrice">Precio (€)</label>
+                                <input id="servicePrice" type="number" min="0" step="0.01" required>
+                            </div>
+                        </div>
+
+                        <label class="form-check"><input id="serviceVisibleWeb" type="checkbox" checked> Visible en la web</label>
+                        <label class="form-check"><input id="serviceAllowsBooking" type="checkbox" checked> Permite reservas</label>
+                        <label class="form-check"><input id="serviceAvailableTpv" type="checkbox" checked> Disponible en TPV</label>
+                        <label class="form-check"><input id="serviceActive" type="checkbox" checked> Servicio activo</label>
+
+                        <div id="serviceFormMessage" class="form-message"></div>
+                        <button class="primary-panel-button modal-submit" type="submit">Guardar servicio</button>
+                    </form>
+
+                </div>
+
+            </div>
+
+
+                    ÁREA PROFESIONAL
+                </p>
+
+                <h1
+                    id="panelTitle"
+                    style="color: #211d1a !important;"
+                >
+                    Inicio
+                </h1>
+
+            </div>
+
+
+            <div class="panel-user">
+
+                <div class="panel-user-info">
+
+                    <strong id="userName">
+                        Cargando...
+                    </strong>
+
+                    <span id="userRole">
+                        Cargando...
+                    </span>
+
+                </div>
+
+                <div class="panel-user-avatar">
+                    M
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =====================================
+             INICIO
+        ====================================== -->
+
+        <section
+            id="section-inicio"
+            class="panel-section active"
+        >
+
+            <div class="welcome-card">
+
+                <div>
+
+                    <p class="panel-eyebrow">
+                        MENTE AMANTE
+                    </p>
+
+                    <h2>
+                        Bienvenido/a a tu espacio de gestión.
+                    </h2>
+
+                    <p>
+                        Desde aquí podrás gestionar las reservas,
+                        profesionales, servicios, clientes,
+                        cobros y facturación.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+
+                <div class="dashboard-card">
+
+                    <span class="dashboard-icon">
+                        ◷
+                    </span>
+
+                    <div>
+
+                        <span>
+                            Reservas pendientes
+                        </span>
+
+                        <strong id="pendingBookings">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="dashboard-card">
+
+                    <span class="dashboard-icon">
+                        ♙
+                    </span>
+
+                    <div>
+
+                        <span>
+                            Profesionales
+                        </span>
+
+                        <strong id="professionalsCount">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="dashboard-card">
+
+                    <span class="dashboard-icon">
+                        ✦
+                    </span>
+
+                    <div>
+
+                        <span>
+                            Servicios activos
+                        </span>
+
+                        <strong id="servicesCount">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="dashboard-card">
+
+                    <span class="dashboard-icon">
+                        ♧
+                    </span>
+
+                    <div>
+
+                        <span>
+                            Clientes
+                        </span>
+
+                        <strong id="clientsCount">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="panel-info-card">
+
+                <h3>
+                    Próximamente
+                </h3>
+
+                <p>
+                    Aquí aparecerán las próximas reservas
+                    y las acciones que requieren tu atención.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             RESERVAS
+        ====================================== -->
+
+        <section
+            id="section-reservas"
+            class="panel-section"
+        >
+
+            <div class="section-topbar">
+
+                <div>
+
+                    <p class="panel-eyebrow">
+                        AGENDA
+                    </p>
+
+                    <h2>
+                        Reservas
+                    </h2>
+
+                    <p class="section-description">
+                        Consulta y gestiona las citas.
+                    </p>
+
+                </div>
+
+
+                <button
+                    id="newAppointmentButton"
+                    type="button"
+                    class="primary-panel-button"
+                >
+
+                    <span>+</span>
+
+                    Nueva reserva
+
+                </button>
+
+            </div>
+
+
+            <div class="professionals-table-card">
+
+                <div class="table-responsive">
+
+                    <table class="professionals-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Fecha
+                                </th>
+
+                                <th>
+                                    Hora
+                                </th>
+
+                                <th>
+                                    Cliente
+                                </th>
+
+                                <th>
+                                    Contacto
+                                </th>
+
+                                <th>
+                                    Profesional
+                                </th>
+
+                                <th>
+                                    Servicio
+                                </th>
+
+                                <th>
+                                    Estado
+                                </th>
+
+                                <th>
+                                    Acciones
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="appointmentsTableBody">
+
+                            <tr>
+
+                                <td
+                                    colspan="8"
+                                    class="table-loading"
+                                >
+                                    Cargando reservas...
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             PROFESIONALES
+        ====================================== -->
+
+        <section
+            id="section-profesionales"
+            class="panel-section"
+        >
+
+            <div class="section-topbar">
+
+                <div>
+
+                    <p class="panel-eyebrow">
+                        EQUIPO
+                    </p>
+
+                    <h2>
+                        Profesionales
+                    </h2>
+
+                    <p class="section-description">
+                        Gestiona las personas que forman parte de
+                        Mente Amante y sus accesos al área profesional.
+                    </p>
+
+                </div>
+
+
+                <button
+                    id="addProfessionalButton"
+                    class="primary-panel-button"
+                    type="button"
+                >
+
+                    <span>+</span>
+
+                    Añadir profesional
+
+                </button>
+
+            </div>
+
+
+            <div class="professionals-toolbar">
+
+                <div class="professional-search">
+
+                    <span>⌕</span>
+
+                    <input
+                        type="text"
+                        id="professionalSearch"
+                        placeholder="Buscar profesional..."
+                    >
+
+                </div>
+
+
+                <div class="professional-filter">
+
+                    <select id="professionalFilter">
+
+                        <option value="todos">
+                            Todos
+                        </option>
+
+                        <option value="activos">
+                            Activos
+                        </option>
+
+                        <option value="inactivos">
+                            Inactivos
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="professionals-table-card">
+
+                <div class="table-responsive">
+
+                    <table class="professionals-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Profesional
+                                </th>
+
+                                <th>
+                                    Teléfono
+                                </th>
+
+                                <th>
+                                    Rol
+                                </th>
+
+                                <th>
+                                    Estado
+                                </th>
+
+                                <th>
+                                    Acciones
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="professionalsTableBody">
+
+                            <tr>
+
+                                <td
+                                    colspan="5"
+                                    class="table-loading"
+                                >
+                                    Cargando profesionales...
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             SERVICIOS
+        ====================================== -->
+
+        <section
+            id="section-servicios"
+            class="panel-section"
+        >
+
+            <div class="section-topbar">
+
+                <div>
+
+                    <p class="panel-eyebrow">CATÁLOGO</p>
+
+                    <h2>Servicios</h2>
+
+                    <p class="section-description">
+                        Gestiona los servicios visibles en la web y disponibles para reservas y TPV.
+                    </p>
+
+                </div>
+
+                <button
+                    id="addServiceButton"
+                    class="primary-panel-button"
+                    type="button"
+                >
+                    <span>+</span>
+                    Añadir servicio
+                </button>
+
+            </div>
+
+            <div class="professionals-table-card">
+
+                <div class="table-responsive">
+
+                    <table class="professionals-table">
+
+                        <thead>
+                            <tr>
+                                <th>Servicio</th>
+                                <th>Duración</th>
+                                <th>Precio</th>
+                                <th>Web</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="servicesTableBody">
+                            <tr>
+                                <td colspan="6" class="table-loading">Cargando servicios...</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section
+            id="section-perfil"
+            class="panel-section"
+        >
+
+            <div class="section-topbar">
+
+                <div>
+                    <p class="panel-eyebrow">CUENTA</p>
+                    <h2>Mi perfil</h2>
+                    <p class="section-description">Mantén actualizados tus datos profesionales.</p>
+                </div>
+
+            </div>
+
+            <div class="profile-card">
+                <div class="profile-avatar-large" id="profileAvatarPreview">M</div>
+
+                <form id="profileForm" class="profile-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="profileName">Nombre</label>
+                            <input id="profileName" type="text" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="profileSurname">Apellidos</label>
+                            <input id="profileSurname" type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="profilePhone">Teléfono</label>
+                        <input id="profilePhone" type="tel">
+                    </div>
+
+                    <div id="profileFormMessage" class="form-message"></div>
+
+                    <button class="primary-panel-button" type="submit">Guardar cambios</button>
+                </form>
+            </div>
+
+            </section>
+
+
+
+
+        <!-- =====================================
+             CLIENTES
+        ====================================== -->
+
+        <section
+            id="section-clientes"
+            class="panel-section"
+        >
+
+            <div class="empty-section">
+
+                <span>♧</span>
+
+                <h2>
+                    Clientes
+                </h2>
+
+                <p>
+                    Aquí construiremos la base de datos
+                    de clientes y su historial.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             TPV
+        ====================================== -->
+
+        <section
+            id="section-tpv"
+            class="panel-section"
+        >
+
+            <div class="section-topbar">
+                <div>
+                    <p class="panel-eyebrow">COBROS</p>
+                    <h2>TPV</h2>
+                    <p class="section-description">Registra cobros y consulta las ventas del día.</p>
+                </div>
+                <div class="tpv-total-card">
+                    <span>Total facturado</span>
+                    <strong id="salesTotalAmount">0,00 €</strong>
+                </div>
+            </div>
+
+            <div class="tpv-layout">
+                <form id="saleForm" class="panel-form-card">
+                    <h3>Nuevo cobro</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="saleClientName">Nombre del cliente</label>
+                            <input id="saleClientName" type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="saleClientPhone">Teléfono</label>
+                            <input id="saleClientPhone" type="tel" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="saleService">Servicio</label>
+                        <select id="saleService" required></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="saleTotal">Importe (€)</label>
+                        <input id="saleTotal" type="number" min="0" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="salePaymentMethod">Método de pago</label>
+                        <select id="salePaymentMethod" required>
+                            <option value="efectivo">Efectivo</option>
+                            <option value="tarjeta">Tarjeta</option>
+                            <option value="transferencia">Transferencia</option>
+                        </select>
+                    </div>
+                    <div id="saleFormMessage" class="form-message"></div>
+                    <button class="primary-panel-button" type="submit">Registrar cobro</button>
+                </form>
+
+                <div class="professionals-table-card">
+                    <div class="table-responsive">
+                        <table class="professionals-table">
+                            <thead><tr><th>Fecha</th><th>Importe</th><th>Método</th></tr></thead>
+                            <tbody id="salesTableBody"><tr><td colspan="3" class="table-loading">Cargando ventas...</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             FACTURACIÓN
+        ====================================== -->
+
+        <section
+            id="section-facturacion"
+            class="panel-section"
+        >
+
+            <div class="section-topbar">
+                <div>
+                    <p class="panel-eyebrow">DOCUMENTOS</p>
+                    <h2>Facturación</h2>
+                    <p class="section-description">Consulta tus ventas y genera un resumen imprimible.</p>
+                </div>
+                <button id="exportSalesButton" class="primary-panel-button" type="button">Exportar CSV</button>
+            </div>
+
+            <div class="professionals-table-card">
+                <div class="table-responsive">
+                    <table class="professionals-table">
+                        <thead><tr><th>Referencia</th><th>Fecha</th><th>Importe</th><th>Método</th><th>Documento</th></tr></thead>
+                        <tbody id="invoicesTableBody"><tr><td colspan="5" class="table-loading">Cargando ventas...</td></tr></tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =====================================
+         MODAL AÑADIR PROFESIONAL
+    ====================================== -->
+
+    <div
+        id="professionalModal"
+        class="modal-overlay"
+    >
+
+        <div class="professional-modal">
+
+            <button
+                id="closeProfessionalModal"
+                class="modal-close"
+                aria-label="Cerrar"
+                type="button"
+            >
+                ×
+            </button>
+
+
+            <div class="modal-heading">
+
+                <p class="panel-eyebrow">
+                    NUEVO PROFESIONAL
+                </p>
+
+                <h2>
+                    Añadir profesional
+                </h2>
+
+                <p>
+                    Crea el perfil profesional que posteriormente
+                    podrá acceder a su propio espacio.
+                </p>
+
+            </div>
+
+
+            <form id="professionalForm">
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="professionalName">
+                            Nombre
+                        </label>
+
+                        <input
+                            type="text"
+                            id="professionalName"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="professionalSurname">
+                            Apellidos
+                        </label>
+
+                        <input
+                            type="text"
+                            id="professionalSurname"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="professionalEmail">
+                        Correo electrónico
+                    </label>
+
+                    <input
+                        type="email"
+                        id="professionalEmail"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="professionalPhone">
+                        Teléfono
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="professionalPhone"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="professionalRole">
+                        Rol
+                    </label>
+
+                    <select id="professionalRole">
+
+                        <option value="trabajador">
+                            Profesional
+                        </option>
+
+                        <option value="administrador">
+                            Administrador
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div
+                    id="professionalFormMessage"
+                    class="form-message"
+                ></div>
+
+
+                <button
+                    type="submit"
+                    class="primary-panel-button modal-submit"
+                >
+                    Crear profesional
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================
+         MODAL NUEVA RESERVA
+    ====================================== -->
+
+    <div
+        id="appointmentModal"
+        class="modal-overlay"
+    >
+
+        <div class="professional-modal">
+
+
+            <button
+                id="closeAppointmentModal"
+                class="modal-close"
+                aria-label="Cerrar"
+                type="button"
+            >
+                ×
+            </button>
+
+
+            <div class="modal-heading">
+
+                <p class="panel-eyebrow">
+                    NUEVA RESERVA
+                </p>
+
+                <h2>
+                    Crear reserva
+                </h2>
+
+                <p>
+                    Añade una nueva cita a la agenda.
+                </p>
+
+            </div>
+
+
+            <form id="appointmentForm">
+
+
+                <!-- CLIENTE -->
+
+                <div class="form-group">
+
+                    <label for="appointmentClient">
+                        Cliente
+                    </label>
+
+                    <input
+                        type="text"
+                        id="appointmentClient"
+                        placeholder="Nombre del cliente"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- PROFESIONAL -->
+
+                <div class="form-group">
+
+                    <label for="appointmentProfessional">
+                        Profesional
+                    </label>
+
+                    <select
+                        id="appointmentProfessional"
+                        required
+                    >
+
+                        <option value="">
+                            Seleccionar profesional
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- SERVICIO -->
+
+                <div class="form-group">
+
+                    <label for="appointmentService">
+                        Servicio
+                    </label>
+
+                    <select
+                        id="appointmentService"
+                        required
+                    >
+
+                        <option value="">
+                            Seleccionar servicio
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- FECHA Y HORA -->
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label for="appointmentDate">
+                            Fecha
+                        </label>
+
+                        <input
+                            type="date"
+                            id="appointmentDate"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="appointmentStartTime">
+                            Hora de inicio
+                        </label>
+
+                        <input
+                            type="time"
+                            id="appointmentStartTime"
+                            required
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- HORA FIN -->
+
+                <div class="form-group">
+
+                    <label for="appointmentEndTime">
+                        Hora de fin
+                    </label>
+
+                    <input
+                        type="time"
+                        id="appointmentEndTime"
+                    >
+
+                </div>
+
+
+                <!-- ESTADO -->
+
+                <div class="form-group">
+
+                    <label for="appointmentStatus">
+                        Estado
+                    </label>
+
+                    <select id="appointmentStatus">
+
+                        <option value="pendiente">
+                            Pendiente
+                        </option>
+
+                        <option value="confirmada">
+                            Confirmada
+                        </option>
+
+                        <option value="cancelada">
+                            Cancelada
+                        </option>
+
+                        <option value="completada">
+                            Completada
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- MÉTODO DE PAGO -->
+
+                <div class="form-group">
+
+                    <label for="appointmentPaymentMethod">
+                        Método de pago
+                    </label>
+
+                    <select id="appointmentPaymentMethod">
+
+                        <option value="">
+                            Pendiente de pago
+                        </option>
+
+                        <option value="efectivo">
+                            Efectivo
+                        </option>
+
+                        <option value="tarjeta">
+                            Tarjeta
+                        </option>
+
+                        <option value="transferencia">
+                            Transferencia
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- MENSAJE -->
+
+                <div
+                    id="appointmentFormMessage"
+                    class="form-message"
+                ></div>
+
+
+                <!-- BOTÓN -->
+
+                <button
+                    type="submit"
+                    class="primary-panel-button modal-submit"
+                >
+                    Crear reserva
+                </button>
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================
+         SCRIPTS
+    ====================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="supabase-config.js"></script>
+
+    <script src="panel.js"></script>
+
+
+</body>
+
+</html>
